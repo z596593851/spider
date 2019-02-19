@@ -53,9 +53,9 @@ COOKIES_ENABLED = True
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'ArticleSpider.middlewares.RandomUserAgentMiddleware': 543,
-   'ArticleSpider.middlewares.RandomProxyMiddleware': 1,
-   'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':None
+   # 'ArticleSpider.middlewares.RandomUserAgentMiddleware': 543,
+   # 'ArticleSpider.middlewares.RandomProxyMiddleware': 1,
+   # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':None
 }
 
 # Enable or disable extensions
@@ -72,8 +72,8 @@ ITEM_PIPELINES = {
    #'scrapy.pipelines.images.ImagesPipeline':1,
 
    #'ArticleSpider.pipelines.MysqlTwistedPipline':2,
-   'ArticleSpider.pipelines.ArticleImagePipeline':1,
-   'ArticleSpider.pipelines.ElasticsearchPipeline':2
+   # 'ArticleSpider.pipelines.ArticleImagePipeline':1,
+   # 'ArticleSpider.pipelines.ElasticsearchPipeline':2
 }
 IMAGES_URLS_FIELD="front_image_url"
 project_dir=os.path.abspath(os.path.dirname(__file__))

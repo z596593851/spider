@@ -34,6 +34,50 @@ class JobBoleArticleItem(scrapy.Item):
     front_image_path=scrapy.Field()
     content=scrapy.Field()
 
+class V2exQuItem(scrapy.Item):
+    title=scrapy.Field()
+    content=scrapy.Field()
+    user_id=scrapy.Field()
+    created_date=scrapy.Field()
+    comment_count=scrapy.Field()
+    def get_insert_sql(self):
+        insert_sql = """
+                            insert into question(title,content,user_id,created_date,comment_count)
+                            VALUES(%s,%s,%s,%s,%s)
+                        """
+        title = self["title"]
+        content = self["content"]
+        user_id = self["user_id"]
+        created_date = self["created_date"]
+        comment_count = self["comment_count"]
+        params = (title,content,user_id,created_date,comment_count)
+        return insert_sql, params
+
+class V2exCoItem(scrapy.Item):
+    content=scrapy.Field()
+    user_id=scrapy.Field()
+    entity_id=scrapy.Field()
+    entity_type=scrapy.Field()
+    created_date=scrapy.Field()
+    status=scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                            insert into comment(content,user_id,entity_id,entity_type,created_date,status)
+                            VALUES(%s,%s,%s,%s,%s,%s)
+                        """
+        content = self["content"]
+        user_id = self["user_id"]
+        entity_id = self["entity_id"]
+        entity_type = self["entity_type"]
+        created_date = self["created_date"]
+        status = self["status"]
+        params = (content,user_id,entity_id,entity_type,created_date,status)
+        return insert_sql, params
+
+
+
+
 class DouBanItem(scrapy.Item):
     url=scrapy.Field()
     title=scrapy.Field()
