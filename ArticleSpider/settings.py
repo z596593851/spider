@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://doc.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 1
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -67,16 +67,23 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   #冒号后面的数字指的是执行顺序
-   # 'ArticleSpider.pipelines.JsonWithEncodingPipeline': 2,
-   #'scrapy.pipelines.images.ImagesPipeline':1,
+    #冒号后面的数字指的是执行顺序
+    # 'scrapy.pipelines.files.FilesPipeline': 1,
+    'ArticleSpider.pipelines.PDFFilesPipeline':1,
+    # 'ArticleSpider.pipelines.JsonWithEncodingPipeline': 2,
+    # 'scrapy.pipelines.images.ImagesPipeline':1,
 
-   #'ArticleSpider.pipelines.MysqlTwistedPipline':2,
-   # 'ArticleSpider.pipelines.ArticleImagePipeline':1,
-   # 'ArticleSpider.pipelines.ElasticsearchPipeline':2
+    'ArticleSpider.pipelines.MysqlTwistedPipline':2,
+    # 'ArticleSpider.pipelines.ArticleImagePipeline':1,
+    # 'ArticleSpider.pipelines.ElasticsearchPipeline':2
 }
+
 IMAGES_URLS_FIELD="front_image_url"
+
 project_dir=os.path.abspath(os.path.dirname(__file__))
+
+FILES_STORE=os.path.join('D:\doc\szse_pdf_3')
+
 IMAGES_STORE=os.path.join(project_dir,'images')
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
@@ -102,6 +109,6 @@ IMAGES_STORE=os.path.join(project_dir,'images')
 RANDOM_UA_TYPE="ie"
 
 MYSQL_HOST="127.0.0.1"
-MYSQL_DBNAME="doubandb"
+MYSQL_DBNAME="test"
 MYSQL_USER="root"
 MYSQL_PASSWORD="root"

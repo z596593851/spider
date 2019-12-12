@@ -3,7 +3,7 @@ import scrapy
 import json
 import os
 import re
-from selenium.webdriver.chrome.options import Options
+# from selenium.webdriver.chrome.options import Options
 from urllib import parse
 from os import path
 

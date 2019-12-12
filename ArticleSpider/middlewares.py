@@ -7,7 +7,7 @@
 
 from scrapy import signals
 from fake_useragent import UserAgent
-from .tools.crawl_xici import GetIP
+# from .tools.crawl_xici import GetIP
 
 class ArticlespiderSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
@@ -128,4 +128,4 @@ class RandomProxyMiddleware(object):
     def process_request(self,request,spider):
         #get_ip=GetIP()
         #request.meta["proxy"]=get_ip.get_random_ip()
-        request.meta["proxy"]="https://61.143.38.53:8118"
+        request.meta["proxy"]="http://222.218.122.5:9999"

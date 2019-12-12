@@ -8,7 +8,7 @@
 import scrapy
 from scrapy.loader import ItemLoader
 from scrapy.loader.processors import MapCompose,TakeFirst
-from .models.es_types import Douban
+# from .models.es_types import Douban
 
 class ArticlespiderItem(scrapy.Item):
     # define the fields for your item here like:
@@ -73,6 +73,68 @@ class V2exCoItem(scrapy.Item):
         created_date = self["created_date"]
         status = self["status"]
         params = (content,user_id,entity_id,entity_type,created_date,status)
+        return insert_sql, params
+
+class PDFItem(scrapy.Item):
+    file_urls = scrapy.Field(
+        output_processor=MapCompose(return_value)
+    )
+    files = scrapy.Field()
+
+class SESSItem(scrapy.Item):
+    stockcode=scrapy.Field()
+    extGSJC=scrapy.Field()
+    cmsOpDate=scrapy.Field()
+    extWTFL=scrapy.Field()
+    # docURL=scrapy.Field(
+    #     output_processor=MapCompose(return_value)
+    # )
+    docTitle=scrapy.Field()
+    file_urls = scrapy.Field(
+        output_processor=MapCompose(return_value)
+    )
+    docPath = scrapy.Field()
+    files = scrapy.Field()
+    def get_insert_sql(self):
+        insert_sql = """
+                            insert into sse2(stockcode,extGSJC,cmsOpDate,extWTFL,docTitle,docPath,fileUrls)
+                            VALUES(%s,%s,%s,%s,%s,%s,%s)
+                        """
+        stockcode = self["stockcode"]
+        extGSJC = self["extGSJC"]
+        cmsOpDate = self["cmsOpDate"]
+        extWTFL = self["extWTFL"]
+        docTitle = self["docTitle"]
+        fileUrls = self["file_urls"]
+        docPath = self["docPath"]
+
+        params = (stockcode,extGSJC,cmsOpDate,extWTFL,docTitle,docPath,fileUrls)
+        return insert_sql, params
+
+class SZSEItem(scrapy.Item):
+    gsdm=scrapy.Field()
+    gsjc=scrapy.Field()
+    fhrq=scrapy.Field()
+    hjlb=scrapy.Field()
+    file_urls = scrapy.Field(
+        output_processor=MapCompose(return_value)
+    )
+    docPath = scrapy.Field()
+    files = scrapy.Field()
+
+    def get_insert_sql(self):
+        insert_sql = """
+                            insert into szse(gsdm,gsjc,fhrq,hjlb,fileUrls,docPath,type)
+                            VALUES(%s,%s,%s,%s,%s,%s,%s)
+                        """
+        gsdm = self["gsdm"]
+        gsjc = self["gsjc"]
+        fhrq = self["fhrq"]
+        hjlb = self["hjlb"]
+        fileUrls = self["file_urls"]
+        docPath = self["docPath"]
+        type = "创业板"
+        params = (gsdm,gsjc,fhrq,hjlb,fileUrls,docPath,type)
         return insert_sql, params
 
 
